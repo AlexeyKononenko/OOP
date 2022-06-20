@@ -1,5 +1,5 @@
 from itertools import count
-from tkinter import N
+
 
 
 class Student:
