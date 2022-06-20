@@ -1,4 +1,5 @@
 from itertools import count
+from tkinter import N
 
 
 class Student:
@@ -149,3 +150,25 @@ def average_all_student(student_list,course_name):
     return float(averge_all)
 
 print(f"Средняя оценка для всех студентов по курсу {'Python'}: {average_all_student(student_list, 'Python')}")
+print()
+print()
+
+lecturer_lsit = [lecturer_1,lecturer_2]
+def average_all_lecturer(lecturer_list,course_name):
+    sum_all_lect = 0
+    count_all_lect = 0
+    for lecturer in lecturer_list:
+        if lecturer.courses_attached == [course_name]:
+            sum_all_lect += lecturer.average_value
+            count_all_lect += 1
+    average_all_lect = sum_all_lect / count_all_lect
+    return float(average_all_lect)
+
+
+print(f"Средняя оценка для всех лекторов по курсу {'Python'}: {average_all_lecturer(lecturer_lsit, 'Python')}")
+
+print(student_1)
+print()
+print(reviewer_1)
+print()
+print(lecturer_2)
