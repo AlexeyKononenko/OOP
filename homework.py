@@ -20,7 +20,7 @@ class Student:
         else:
             return 'Ошибка'        
     
-    def __str__(self):
+    def __str__(self)->str:
         count_grade = 0
         for k in self.grades:
             count_grade += len(self.grades[k])
@@ -52,11 +52,11 @@ class Lecturer(Mentor):
         self.average_value = float()
         self.grades = {}
    
-    def __str__(self):
+    def __str__(self)->str:
         count_grade = 0
         for v in self.grades:
             count_grade += len(self.grades[v])
-        self.average_value = sum(self.grades.values())/count_grade
+        self.average_value = sum(map(sum,self.grades.values()))/count_grade
         result = f'''Имя: {self.name}
         Фамилия: {self.surname}
         Средняя оценка за лекции: {self.average_value}'''
@@ -64,8 +64,7 @@ class Lecturer(Mentor):
     
     def __lt__(self, other):
         if not isinstance(other, Lecturer):
-            print('Это не Лектор!')
-            return
+            return 'Это не Лектор!'
         return self.average_value > other.average_value     
 
 
@@ -82,7 +81,7 @@ class Reviewer(Mentor):
         else:
             return 'Ошибка'
     
-    def __str__(self):
+    def __str__(self)->str:
         result = f'''Имя: {self.name}
         Фамилия: {self.surname}''' 
         return result
@@ -116,7 +115,7 @@ student_1.rate_lecture (lecturer_2, 'Python', 9)
 student_2.rate_lecture (lecturer_1, 'Python', 4)
 student_2.rate_lecture (lecturer_2, 'Python', 5)
 
-reviewer_1.rate_hw (student_1, 'Python',10 )
+reviewer_1.rate_hw (student_1, 'Python',10)
 reviewer_1.rate_hw (student_2, 'Python', 6)
 reviewer_2.rate_hw (student_1, 'Python', 7)
 reviewer_2.rate_hw (student_2, 'Python', 9)
@@ -125,3 +124,28 @@ reviewer_2.rate_hw (student_2, 'Python', 9)
 print(f'''Перечень студентов:
       {student_1}, 
       {student_2} ''')
+print()
+print()
+print(student_1.__lt__(student_2))
+print()
+print()
+print(f'''Перечень Лекторов:
+      {lecturer_1}, 
+      {lecturer_2} ''')
+
+print(lecturer_1.__lt__(lecturer_2))
+
+
+student_list = [student_1,student_2]
+ 
+def average_all_student(student_list,course_name):
+    sum_all_stud = 0
+    count_all_stud = 0
+    for student in student_list:
+        if student.courses_in_progress == [course_name]:
+            sum_all_stud += student.average_grade
+            count_all_stud += 1
+    averge_all = sum_all_stud / count_all_stud
+    return float(averge_all)
+
+print(f"Средняя оценка для всех студентов по курсу {'Python'}: {average_all_student(student_list, 'Python')}")
